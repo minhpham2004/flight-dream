@@ -1,0 +1,13 @@
+.timefont {
+    width: 56px;
+    height: 24px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 120%;
+    color: #4669CD;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
