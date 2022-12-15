@@ -12,21 +12,20 @@ export default function NextStepBtn({nextStep}:any) {
 
     const BootstrapButton = styled(Button)({
         width: "138px",
-        color: "white",
         boxShadow: 'none',
         textTransform: 'none',
         fontSize: 16,
         padding: '12px',
-        border: '1px solid',
         lineHeight: 1.5,
-        backgroundColor: '#0063cc',
+        backgroundColor: "#4669CD",
+        color: "#FCFCFD",
         borderColor: '#0063cc',
+        borderRadius: "8px",
         fontWeight: "500",
-        fontFamily: "Inter",
         '&:hover': {
-            backgroundColor: '#0069d9',
-            borderColor: '#0062cc',
-            boxShadow: 'none',
+            backgroundColor: "#0069d9",
+                color: "rgb(210, 210, 210)",
+                cursor: "pointer",
         },
         '&:active': {
             boxShadow: 'none',
