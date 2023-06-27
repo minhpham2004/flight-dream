@@ -119,7 +119,7 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
         )
     };
 
-    const validate = (values: any, index: number) => {
+    const validate = (values: any, index: number, field: string) => {
         const tempError: any = formErrBoolean;
         const errors: any = formErrors
 
@@ -127,70 +127,87 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
         const phoneRegex = /^[0-9\-\+]{9,15}$/i;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-        if (!values.firstName.trim()) {
-            tempError[index] = { ...tempError[index], firstNameError: true }
-            errors[index].firstName = "Please enter your first name!";
-        } else if (!nameRegex.test(values.firstName)) {
-            tempError[index] = { ...tempError[index], firstNameError: true }
-            errors[index].firstName = "Invalid name";
-        } else {
-            tempError[index] = { ...tempError[index], firstNameError: false }
-            errors[index].firstName = ''
+        if (field === 'firstName') {
+            if (!values.firstName.trim()) {
+                tempError[index] = { ...tempError[index], firstNameError: true }
+                errors[index].firstName = "Please enter your first name!";
+            } else if (!nameRegex.test(values.firstName)) {
+                tempError[index] = { ...tempError[index], firstNameError: true }
+                errors[index].firstName = "Invalid name";
+            } else {
+                tempError[index] = { ...tempError[index], firstNameError: false }
+                errors[index].firstName = ''
+            }
         }
 
-        if (!values.lastName.trim()) {
-            tempError[index] = { ...tempError[index], lastNameError: true }
-            errors[index].lastName = "Please enter your last name!";
-        } else if (!nameRegex.test(values.lastName)) {
-            tempError[index] = { ...tempError[index], lastNameError: true }
-            errors[index].lastName = "Invalid name";
-        } else {
-            tempError[index] = { ...tempError[index], lastNameError: false }
-            errors[index].lastName = ''
+
+        if (field === 'lastName') {
+            if (!values.lastName.trim()) {
+                tempError[index] = { ...tempError[index], lastNameError: true }
+                errors[index].lastName = "Please enter your last name!";
+            } else if (!nameRegex.test(values.lastName)) {
+                tempError[index] = { ...tempError[index], lastNameError: true }
+                errors[index].lastName = "Invalid name";
+            } else {
+                tempError[index] = { ...tempError[index], lastNameError: false }
+                errors[index].lastName = ''
+            }
         }
 
-        if (!values.email.trim()) {
-            tempError[index] = { ...tempError[index], mailError: true }
-            errors[index].mail = "Please enter your email!";
-        } else if (!emailRegex.test(values.email)) {
-            tempError[index] = { ...tempError[index], mailError: true }
-            errors[index].mail = "Invalid email!";
-        } else {
-            tempError[index] = { ...tempError[index], mailError: false }
-            errors[index].mail = ''
+        if (field === 'email') {
+            if (!values.email.trim()) {
+                tempError[index] = { ...tempError[index], mailError: true }
+                errors[index].mail = "Please enter your email!";
+            } else if (!emailRegex.test(values.email)) {
+                tempError[index] = { ...tempError[index], mailError: true }
+                errors[index].mail = "Invalid email!";
+            } else {
+                tempError[index] = { ...tempError[index], mailError: false }
+                errors[index].mail = ''
+            }
         }
 
-        if (!values.phone.trim()) {
-            tempError[index] = { ...tempError[index], phoneError: true }
-            errors[index].phone = 'Please enter your phone number'
-        } else if (!phoneRegex.test(values.phone)) {
-            tempError[index] = { ...tempError[index], phoneError: true }
-            errors[index].phone = 'Invalid phone number'
-        } else {
-            tempError[index] = { ...tempError[index], phoneError: false }
-            errors[index].phone = ''
+        if (field === 'phone') {
+            if (!values.phone.trim()) {
+                tempError[index] = { ...tempError[index], phoneError: true }
+                errors[index].phone = 'Please enter your phone number'
+            } else if (!phoneRegex.test(values.phone)) {
+                tempError[index] = { ...tempError[index], phoneError: true }
+                errors[index].phone = 'Invalid phone number'
+            } else {
+                tempError[index] = { ...tempError[index], phoneError: false }
+                errors[index].phone = ''
+            }
+
         }
 
-        if (!values.gender) {
-            tempError[index] = { ...tempError[index], genderError: true }
-            errors[index].gender = 'Please select your gender!'
-        } else {
-            tempError[index] = { ...tempError[index], genderError: false }
-            errors[index].gender = ''
+        if (field === 'gender') {
+            if (!values.gender) {
+                tempError[index] = { ...tempError[index], genderError: true }
+                errors[index].gender = 'Please select your gender!'
+            } else {
+                tempError[index] = { ...tempError[index], genderError: false }
+                errors[index].gender = ''
+            }
+
         }
 
-        if (!values.nationality) {
-            tempError[index] = { ...tempError[index], nationError: true }
-            errors[index].nation = 'Please select your nation!'
-        } else {
-            tempError[index] = { ...tempError[index], nationError: false }
-            errors[index].nation = ''
+        if (field === 'nationality') {
+            if (!values.nationality) {
+                tempError[index] = { ...tempError[index], nationError: true }
+                errors[index].nation = 'Please select your nation!'
+            } else {
+                tempError[index] = { ...tempError[index], nationError: false }
+                errors[index].nation = ''
+            }
         }
+
+
 
         return errors
     }
 
-    const changeData = (el: any, index: any, field: string, data: any, regex: any = true) => {
+    const changeData = (el: any, index: any, field: string, data: any) => {
         let namePassenger = data[index][field];
         const newData = data;
 
@@ -198,28 +215,40 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
         newData[index][field] = namePassenger;
 
         setDefaultData(newData);
-        setFormErrors(validate(defaultData[index], index))
+
         setCount(count + 1);
     }
 
-    const hadnleChangeFirstName = (el: any, index: number, _data: any) => {
+    const handleChangeFirstName = (el: any, index: number, _data: any) => {
         changeData(el, index, 'firstName', _data);
+        setFormErrors(validate(defaultData[index], index, 'firstName'))
+
     }
 
-    const hadnleChangelastName = (el: any, index: number, data: any) => {
+    const handleChangelastName = (el: any, index: number, data: any) => {
         changeData(el, index, 'lastName', data);
+        setFormErrors(validate(defaultData[index], index, 'lastName'))
+
     }
-    const hadnleChangeNationality = (el: any, index: number, data: any) => {
+    const handleChangeNationality = (el: any, index: number, data: any) => {
         changeData(el, index, 'nationality', data);
+        setFormErrors(validate(defaultData[index], index, 'nationality'))
+
     }
-    const hadnleChangegender = (el: any, index: number, data: any) => {
+    const handleChangegender = (el: any, index: number, data: any) => {
         changeData(el, index, 'gender', data);
+        setFormErrors(validate(defaultData[index], index, 'gender'))
+
     }
-    const hadnleChangeemail = (el: any, index: number, data: any) => {
+    const handleChangeemail = (el: any, index: number, data: any) => {
         changeData(el, index, 'email', data);
+        setFormErrors(validate(defaultData[index], index, 'email'))
+
     }
-    const hadnleChangephone = (el: any, index: number, data: any) => {
+    const handleChangephone = (el: any, index: number, data: any) => {
         changeData(el, index, 'phone', data);
+        setFormErrors(validate(defaultData[index], index, 'phone'))
+
     }
 
     return (
@@ -248,7 +277,7 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
                                     variant="outlined"
                                     name="firstName"
                                     value={form?.firstName}
-                                    onChange={(e) => { hadnleChangeFirstName(e, index, defaultData) }}
+                                    onChange={(e) => { handleChangeFirstName(e, index, defaultData) }}
                                     error={formErrBoolean[index].firstNameError}
                                 />
                                 <ErrorMessage>{formErrors[index].firstName}</ErrorMessage>
@@ -269,7 +298,7 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
                                     variant="outlined"
                                     name="lastName"
                                     value={form?.lastName}
-                                    onChange={(e) => { hadnleChangelastName(e, index, defaultData) }}
+                                    onChange={(e) => { handleChangelastName(e, index, defaultData) }}
                                     error={formErrBoolean[index].lastNameError}
                                 />
                                 <ErrorMessage>{formErrors[index].lastName}</ErrorMessage>
@@ -293,7 +322,7 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
                                         name="gender"
                                         value={form?.gender}
                                         label="Gender"
-                                        onChange={(e) => { hadnleChangegender(e, index, defaultData) }}
+                                        onChange={(e) => { handleChangegender(e, index, defaultData) }}
                                         error={formErrBoolean[index].genderError}
                                     >
                                         <MenuItem value="Men">Men</MenuItem>
@@ -320,7 +349,7 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
                                         name="nation"
                                         value={form?.nationality}
                                         label="Nationality"
-                                        onChange={(e) => { hadnleChangeNationality(e, index, defaultData) }}
+                                        onChange={(e) => { handleChangeNationality(e, index, defaultData) }}
                                         error={formErrBoolean[index].nationError}
                                     >
                                         <MenuItem value="VN">Vietnam</MenuItem>
@@ -351,7 +380,7 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
                                     variant="outlined"
                                     name="phone"
                                     value={form?.phone}
-                                    onChange={(e) => { hadnleChangephone(e, index, defaultData) }}
+                                    onChange={(e) => { handleChangephone(e, index, defaultData) }}
                                     error={formErrBoolean[index].phoneError}
                                 />
                                 <ErrorMessage>{formErrors[index].phone}</ErrorMessage>
@@ -373,7 +402,7 @@ function PassengerForm({ handleOnclick }: NewpropsData) {
                                     variant="outlined"
                                     name="mail"
                                     value={form?.email}
-                                    onChange={(e) => { hadnleChangeemail(e, index, defaultData) }}
+                                    onChange={(e) => { handleChangeemail(e, index, defaultData) }}
                                     error={formErrBoolean[index].mailError}
                                 />
                                 <ErrorMessage>{formErrors[index].mail}</ErrorMessage>

@@ -1,0 +1,8 @@
+{
+  "name": "flightdream",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/minhpham2004/flight-dream.git",
+  "author": "ngocminhpham2004hn@gmail.com",
+  "license": "MIT"
+}
